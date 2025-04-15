@@ -21,3 +21,26 @@ class Line:
             fill=fill_color,
             width=2,
         )
+
+class Cell:
+    def __init__(self, top_left: Point, bottom_right: Point):
+        self.has_left_wall = True
+        self.has_right_wall = True
+        self.has_top_wall = True
+        self.has_bottom_wall = True
+        self._win = None
+        self._x1 = top_left.x
+        self._y1 = top_left.y
+        self._x2 = bottom_right.x
+        self._y2 = bottom_right.y
+
+    def draw(self, canvas: Canvas, fill_color):
+        self._win = canvas
+        if self.has_left_wall:
+            Line(Point(self._x1, self._y1), Point(self._x1, self._y2)).draw(canvas, fill_color)
+        if self.has_right_wall:
+            Line(Point(self._x2, self._y1), Point(self._x2, self._y2)).draw(canvas, fill_color)
+        if self.has_top_wall:
+            Line(Point(self._x1, self._y1), Point(self._x2, self._y1)).draw(canvas, fill_color)
+        if self.has_bottom_wall:
+            Line(Point(self._x1, self._y2), Point(self._x2, self._y2)).draw(canvas, fill_color)
